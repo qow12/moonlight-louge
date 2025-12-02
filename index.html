@@ -393,6 +393,89 @@
       text-align: center; /* ➜ ini untuk center horizontal */
       width: 100%; /* pastikan mengambil seluruh lebar */
     }
+    
+    @supports (background-clip: text) {
+      .text-gradients {
+        margin: 2px 0 0px;
+        background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%);
+        background-clip: text;
+        color: transparent;
+        font-size: 35px;
+        font-weight: 900;
+        background-size: 300%;
+        display: inline-block;
+        animation-duration: 0s;
+        animation-timing-function: ease;
+      }
+
+      .team-card.owner:hover .text-gradients {
+        animation: animate-gradients 2s linear infinite; 
+      }
+
+      .text-gradients1 {
+        margin: 2px 0 0px;
+        background-image: linear-gradient(to right, #ff6f00 0%, #e0981c 52%, #d7e918 100%);
+        background-clip: text;
+        color: transparent;
+        font-size: 35px;
+        font-weight: 900;
+        background-size: 300%;
+        display: inline-block;
+        animation-duration: 0s;
+        animation-timing-function: ease;
+      }
+
+      .team-card.admin:hover .text-gradients1 {
+        animation: animate-gradients 2s linear infinite; 
+      }
+
+      .text-gradients2 {
+        margin: 2px 0 0px;
+        background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+        background-clip: text;
+        color: transparent;
+        font-size: 35px;
+        font-weight: 900;
+        background-size: 300%;
+        display: inline-block;
+        animation-duration: 0s;
+        animation-timing-function: ease;
+      }
+
+      .team-card.mod:hover .text-gradients2 {
+        animation: animate-gradients 2s linear infinite; 
+      }
+
+      .text-gradients3 {
+        margin: 2px 0 0px;
+        background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
+        background-clip: text;
+        color: transparent;
+        font-size: 35px;
+        font-weight: 900;
+        background-size: 300%;
+        display: inline-block;
+        animation-duration: 0s;
+        animation-timing-function: ease;
+      }
+
+      .team-card.modz:hover .text-gradients3 {
+        animation: animate-gradients 2s linear infinite; 
+      }
+    }
+
+    /* Keyframes looping */
+    @keyframes animate-gradients {
+      0% {
+        background-position: 0% center;
+      }
+      50% {
+        background-position: 100% center;
+      }
+      100% {
+        background-position: 0% center;
+      }
+    }
 
     .team-container {
       display: flex;
@@ -421,13 +504,13 @@
       padding: 18px;
       border-radius: 18px;
       backdrop-filter: blur(8px);
-      border: 1px solid rgba(81, 15, 103, 0.798);
+      border: 1px solid rgba(59,130,246,0.3);
       transition: transform .45s ease, box-shadow .45s ease;
     }
 
     .team-card:hover {
       transform: translateY(-8px) scale(1.05);
-      box-shadow: 0 0 25px #9c00ff, 0 0 45px #4d00ff inset;
+      box-shadow: 0 0 25px #220832, 0 0 45px #4d00ff inset;
     }
 
     .team-card img {
@@ -456,17 +539,17 @@
     }
 
     /* Glow rank colors */
-    .team-card.owner { box-shadow: 0 0 12px #ff0066aa; }
-    .team-card.owner:hover { box-shadow: 0 0 36px #ff0066dd; }
+    .team-card.owner { box-shadow: 0 0 0px #ff0066aa; }
+    .team-card.owner:hover { box-shadow: 0 0 20px #ff0066dd;}
 
-    .team-card.admin { box-shadow: 0 0 12px #ff9900; }
-    .team-card.admin:hover { box-shadow: 0 0 36px #ccff00; }
+    .team-card.admin { box-shadow: 0 0 0px #ff9900; }
+    .team-card.admin:hover { box-shadow: 0 0 20px #ed9f2a; }
 
-    .team-card.mod { box-shadow: 0 0 12px #4800ffaa; }
-    .team-card.mod:hover { box-shadow: 0 0 36px #7b00ffdd; }
+    .team-card.mod { box-shadow: 0 0 0px #4800ffaa; }
+    .team-card.mod:hover { box-shadow: 0 0 20px #622bee; }
 
-    .team-card.modz { box-shadow: 0 0 12px #00ff73aa; }
-    .team-card.modz:hover { box-shadow: 0 0 36px #00ffeadd; }
+    .team-card.modz { box-shadow: 0 0 0px #00ff73aa; }
+    .team-card.modz:hover { box-shadow: 0 0 20px #3bed8baa; }
 
     /* reveal animations */
     .reveal{ opacity:0; transform: translateY(12px) scale(0.995); transition: opacity 600ms cubic-bezier(.2,.9,.3,1), transform 600ms cubic-bezier(.2,.9,.3,1); }
@@ -576,7 +659,7 @@
     <div class="star-layer"></div>
     <div class="hero-left">
       <h1 id="heroTitle">Moonlight Lounge</h1>
-      <p class="muted" id="heroSubtitle">Tempat nongkrong ramah untuk ngobrol, main, dan berbagi — karaoke, game nights, dan banyak lagi.</p>
+      <p class="muted" id="heroSubtitle">Tempat nongkrong ramah untuk ngobrol, main, dan berbagi — game nights, dan banyak lagi.</p>
 
       <div class="cta" style="margin-top:18px">
         <a class="btn ripple" href="https://discord.gg/moonl1ghtlounge" target="_blank" rel="noopener">Join Discord</a>
@@ -585,7 +668,7 @@
 
       <div class="hero-badges" aria-hidden="true">
         <div class="badge">✨ Aktif 24/7</div>
-        <div class="badge">🎵 Music & Karaoke</div>
+        <div class="badge">🎵 Music & Chill</div>
         <div class="badge">🎮 Game Nights</div>
       </div>
     </div>
@@ -594,7 +677,7 @@
       <!-- QUICK SHARE SIMPLE & ELEGAN -->
       <div class="card reveal" id="shareCard" style="margin-bottom:16px">
         <h2>Quick Share</h2>
-        <p class="muted" style="font-size:12px;margin-bottom:8px">Invite Link</p>
+        <p class="muted" style="font-size:20px;margin-bottom:15px">Invite Link</p>
         
         <a class="share-link" href="https://discord.gg/moonl1ghtlounge"
           target="_blank" rel="noopener"
@@ -605,7 +688,7 @@
           https://discord.gg/moonl1ghtlounge
         </a>
 
-        <p class="muted" style="font-size:11px;margin-top:6px;opacity:0.7;">
+        <p class="muted" style="font-size:15px;margin-top:6px;opacity:1;">
           Klik untuk membuka invite
         </p>
       </div>
@@ -631,24 +714,24 @@
     <div class="team-container">
 
       <!-- 8 CARD ASLI -->
-      <div class="team-card owner"><img src="img/Owner.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#ff0080,#ff8c00);">Jemii</h3><p class="staff-role">Moonlord</p></div>
-      <div class="team-card admin"><img src="assets/staff/admin.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#ff6a00,#f7fb01);">Staff 1</h3><p class="staff-role">Starguard</p></div>
-      <div class="team-card admin"><img src="assets/staff/admin.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#ff6a00,#f7fb01);">Staff 2</h3><p class="staff-role">Starguard</p></div>
-      <div class="team-card mod"><img src="img/staff 3.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#4800ff,#00ffaa);">Orcs</h3><p class="staff-role">LunaCrew</p></div>
-      <div class="team-card mod"><img src="assets/staff/moderator.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#4800ff,#00ffaa);">Staff 4</h3><p class="staff-role">LunaCrew</p></div>
-      <div class="team-card mod"><img src="assets/staff/moderator.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#4800ff,#00ffaa);">Staff 4</h3><p class="staff-role">LunaCrew</p></div>
-      <div class="team-card modz"><img src="assets/staff/moderator.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#00ff73,#00ffe5);">Staff 5</h3><p class="staff-role">Manager Partner</p></div>
-      <div class="team-card modz"><img src="assets/staff/moderator.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#00ff73,#00ffe5);">Staff 5</h3><p class="staff-role">Manager Partner</p></div>
+      <div class="team-card owner"><img src="img/Owner.png"><h3 class="text-gradients">Jemii</h3><p class="staff-role">Moonlord</p></div>
+      <div class="team-card admin"><img src="assets/staff/admin.png"><h3 class="text-gradients1">Bastian</h3><p class="staff-role">Starguard</p></div>
+      <div class="team-card admin"><img src="assets/staff/admin.png"><h3 class="text-gradients1">vies</h3><p class="staff-role">Starguard</p></div>
+      <div class="team-card mod"><img src="img/staff 3.png"><h3 class="text-gradients2">Orcs</h3><p class="staff-role">LunaCrew</p></div>
+      <div class="team-card mod"><img src="assets/staff/moderator.png"><h3 class="text-gradients2">Orekii</h3><p class="staff-role">LunaCrew</p></div>
+      <div class="team-card mod"><img src="assets/staff/moderator.png"><h3 class="text-gradients2">Ravie</h3><p class="staff-role">LunaCrew</p></div>
+      <div class="team-card modz"><img src="assets/staff/moderator.png"><h3 class="text-gradients3">Naelrawr</h3><p class="staff-role">Manager Partner</p></div>
+      <div class="team-card modz"><img src="assets/staff/moderator.png"><h3 class="text-gradients3">Ren kipli</h3><p class="staff-role">Manager Partner</p></div>
 
       <!-- DUPLIKASI UNTUK LOOP -->
-      <div class="team-card owner"><img src="img/Owner.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#ff0080,#ff8c00);">Jemii</h3><p class="staff-role">Moonlord</p></div>
-      <div class="team-card admin"><img src="assets/staff/admin.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#ff6a00,#f7fb01);">Staff 1</h3><p class="staff-role">Starguard</p></div>
-      <div class="team-card admin"><img src="assets/staff/admin.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#ff6a00,#f7fb01);">Staff 2</h3><p class="staff-role">Starguard</p></div>
-      <div class="team-card mod"><img src="img/staff 3.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#4800ff,#00ffaa);">Orcs</h3><p class="staff-role">LunaCrew</p></div>
-      <div class="team-card mod"><img src="assets/staff/moderator.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#4800ff,#00ffaa);">Staff 4</h3><p class="staff-role">LunaCrew</p></div>
-      <div class="team-card mod"><img src="assets/staff/moderator.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#4800ff,#00ffaa);">Staff 4</h3><p class="staff-role">LunaCrew</p></div>
-      <div class="team-card modz"><img src="assets/staff/moderator.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#00ff73,#00ffe5);">Staff 5</h3><p class="staff-role">Manager Partner</p></div>
-      <div class="team-card modz"><img src="assets/staff/moderator.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#00ff73,#00ffe5);">Staff 5</h3><p class="staff-role">Manager Partner</p></div>
+      <div class="team-card owner"><img src="img/Owner.png"><h3 class="text-gradients">Jemii</h3><p class="staff-role">Moonlord</p></div>
+      <div class="team-card admin"><img src="assets/staff/admin.png"><h3 class="text-gradients1">Bastian</h3><p class="staff-role">Starguard</p></div>
+      <div class="team-card admin"><img src="assets/staff/admin.png"><h3 class="text-gradients1">vies</h3><p class="staff-role">Starguard</p></div>
+      <div class="team-card mod"><img src="img/staff 3.png"><h3 class="text-gradients2">Orcs</h3><p class="staff-role">LunaCrew</p></div>
+      <div class="team-card mod"><img src="assets/staff/moderator.png"><h3 class="text-gradients2">Orekii</h3><p class="staff-role">LunaCrew</p></div>
+      <div class="team-card mod"><img src="assets/staff/moderator.png"><h3 class="text-gradients2">Ravie</h3><p class="staff-role">LunaCrew</p></div>
+      <div class="team-card modz"><img src="assets/staff/moderator.png"><h3 class="text-gradients3">Naelrawr</h3><p class="staff-role">Manager Partner</p></div>
+      <div class="team-card modz"><img src="assets/staff/moderator.png"><h3 class="text-gradients3">Ren kipli</h3><p class="staff-role">Manager Partner</p></div>
 
     </div>
   </section>
@@ -657,17 +740,19 @@
     <div class="card reveal" id="rules">
       <h2>Rules Server</h2>
       <ol class="rules-list" style="margin-top:12px;padding-left:18px; text-align:left; color: rgba(230,238,251,0.9);">
-        <li>Hormati sesama anggota. Tidak boleh kata-kata kasar, rasis, atau menghina.</li>
-        <li>Tidak membagikan konten ilegal atau berbahaya.</li>
-        <li>Jangan spam di channel umum. Gunakan channel khusus untuk promosi.</li>
-        <li>Patuhi instruksi moderator & admin.</li>
-        <li>Gunakan voice channel dengan sopan (jangan ganggu sesi orang lain).</li>
+        <li>Saling menghormati perlakukan semua orang dengan sopan dan ramah</li>
+        <li>Jaga suasana tetap santai hindari drama atau debat yang nggak perlu.</li>
+        <li>Dilarang konten NSFW atau disturbing.</li>
+        <li>Gunakan channel sesuai fungsinya.</li>
+        <li>Jangan spam atau promosi pribadi.</li>
+        <li>Hormati privasi orang lain. Jangan sebar DM, data pribadi, atau screenshot tanpa izin.</li>
+        <li>Nikmatin waktumu di sini ngobrol, ketawa, sharing cerita, dan temukan teman baru di bawah cahaya bulan.</li>
       </ol>
     </div>
 
     <div class="card reveal" id="music">
       <h2>Music Bot — Commands</h2>
-      <p class="muted">Gunakan bot music untuk putar lagu, antrian, dan karaoke.</p>
+      <p class="muted">Gunakan bot music untuk putar lagu, atau bersantai</p>
       <div class="cmd" style="margin-top:10px"><code>!play &lt;judul atau link&gt;</code> — Memutar lagu</div>
       <div class="cmd"><code>!skip</code> — Lewati lagu saat ini</div>
       <div class="cmd"><code>!queue</code> — Lihat antrian lagu</div>
@@ -702,6 +787,13 @@
 </footer>
 
 <script>
+document.getElementById('rulesBtn').addEventListener('click', () => {
+  const rules = document.getElementById('rules');
+  if (rules) {
+    rules.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+});
+
 // ========= CONFIG =========
 const SERVER_ID = "1402562365894955048"; // ← Ganti dengan Server ID Moonlight Lounge
 const DISCORD_WIDGET_URL = `https://discord.com/api/guilds/${SERVER_ID}/widget.json`;
