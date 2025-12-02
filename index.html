@@ -5,303 +5,798 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Moonlight Lounge</title>
   <meta name="description" content="Moonlight Discord Community — Komunitas Indonesia. Join kami untuk nongkrong, gaming, musik, dan event." />
+  <meta name="theme-color" content="#0c0f17">
 
   <style>
-    /* ===== Moonlight Soft Blue — Light Minimal Theme ===== */
-    :root{
-      --bg: #f6fbff; /* very light */
-      --card: #ffffff;
-      --soft-blue: #3b82f6; /* primary */
-      --soft-blue-2: #60a5fa;
-      --muted: #68738a;
-      --glass: rgba(59,130,246,0.06);
-      --accent: #8bb8ff;
-      --radius: 12px;
-      --shadow: 0 6px 24px rgba(99,115,138,0.08);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    /* STARFIELD EFFECT — RAMAI, DALAM SECTION SAJA */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #0a0d14 0%, #07080e 100%);
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      background: linear-gradient(180deg, #fbfdff 0%, #f1f7ff 100%);
-      color:#0b1220;
+    /* 3 Layer Parallax Stars */
+    .hero::before,
+    .hero::after,
+    .hero .star-layer {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Layer 1: Bright + Biggest (slow rotation) */
+    .hero::before {
+      background-image:
+        radial-gradient(2px 2px at 20% 30%, #ffffff, transparent),
+        radial-gradient(2px 2px at 80% 20%, #ffffff, transparent),
+        radial-gradient(2px 2px at 50% 70%, #9dd9ff, transparent),
+        radial-gradient(2px 2px at 40% 50%, #b2e4ff, transparent),
+        radial-gradient(2px 2px at 70% 80%, #ffffff, transparent);
+      background-size: 700px 700px;
+      opacity: 1;
+      animation: rotateGalaxy 85s linear infinite;
+      filter: drop-shadow(0 0 6px #b5e7ff);
+    }
+
+    /* Layer 2: Medium + More stars (counter rotation) */
+    .hero .star-layer {
+      background-image:
+        radial-gradient(1.3px 1.3px at 25% 60%, #ffffff, transparent),
+        radial-gradient(1.5px 1.5px at 65% 25%, #aee1ff, transparent),
+        radial-gradient(1.2px 1.2px at 45% 85%, #ffffff, transparent),
+        radial-gradient(1.5px 1.5px at 90% 55%, #d9f3ff, transparent),
+        radial-gradient(1.3px 1.3px at 10% 75%, #c8e6ff, transparent),
+        radial-gradient(1.6px 1.6px at 75% 10%, #ffffff, transparent);
+      background-size: 900px 900px;
+      opacity: 0.75;
+      animation: rotateGalaxyReverse 110s linear infinite;
+      filter: drop-shadow(0 0 3px #93caff);
+    }
+
+    /* Layer 3: Small + Dense (slow drift only) */
+    .hero::after {
+      background-image:
+        radial-gradient(1px 1px at 15% 15%, #ffffff, transparent),
+        radial-gradient(1px 1px at 85% 15%, #ffffff, transparent),
+        radial-gradient(1px 1px at 20% 85%, #ffffff, transparent),
+        radial-gradient(1px 1px at 65% 40%, #e2f3ff, transparent),
+        radial-gradient(1px 1px at 45% 25%, #ffffff, transparent),
+        radial-gradient(1px 1px at 35% 90%, #ffffff, transparent),
+        radial-gradient(1px 1px at 95% 70%, #ffffff, transparent);
+      background-size: 1000px 1000px;
+      opacity: .5;
+      animation: driftStars 65s ease-in-out infinite;
+    }
+
+    /* Animations */
+    @keyframes rotateGalaxy {
+      0% { transform: rotate(0deg) scale(1); }
+      100% { transform: rotate(360deg) scale(1.18); }
+    }
+
+    @keyframes rotateGalaxyReverse {
+      0% { transform: rotate(0deg) scale(1); }
+      100% { transform: rotate(-360deg) scale(1.1); }
+    }
+
+    @keyframes driftStars {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    /* ---------- Design tokens ---------- */
+    :root{
+      --bg-dark: #0c0f17;
+      --card-dark: rgba(255,255,255,0.03);
+      --soft-blue: #3b82f6;
+      --soft-blue-2: #60a5fa;
+      --muted-light: rgba(255,255,255,0.8);
+      --glass-3: rgba(11,18,32,0.03);
+      --accent: #8bb8ff;
+      --radius: 14px;
+      --transition: 320ms cubic-bezier(.2,.9,.3,1);
+      --surface: rgba(255,255,255,0.04);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    /* ---------- Reset & base ---------- */
+    * { box-sizing: border-box; }
+    html,body{ height:100%; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(1200px 400px at 10% 10%, rgba(139,184,255,0.02), transparent),
+        linear-gradient(180deg, #071022 0%, #0b1220 100%);
+      color: #e6eefb;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       font-size:16px;
       line-height:1.45;
+      padding-bottom:80px;
+      overflow-x: hidden;
     }
 
-    /* layout */
+    section { padding: 60px 20px; text-align: center; }
+
+    /* ---------- Header ---------- */
     header{
-      position:sticky;top:0;z-index:40;
+      position: sticky;
+      top: 10px;
+      z-index: 60;
+      margin: 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      box-shadow: 0 6px 24px rgba(7,12,20,0.6);
       backdrop-filter: blur(6px);
-      background: rgba(255,255,255,0.6);
-      border-bottom: 1px solid rgba(11,18,32,0.04);
-      display:flex;align-items:center;justify-content:space-between;padding:14px 22px;
+      border: 1px solid rgba(255,255,255,0.02);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    header.scrolled{ transform: translateY(-6px); box-shadow: 0 10px 36px rgba(7,12,20,0.75); }
+
+    .logo{ display:flex; gap:12px; align-items:center; color: var(--muted-light); }
+    .logo .mark{
+      width:48px;height:48px;border-radius:12px;
+      background:linear-gradient(180deg,var(--soft-blue),var(--soft-blue-2));
+      display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:18px;
+      box-shadow: 0 6px 18px rgba(59,130,246,0.15), inset 0 -6px 18px rgba(255,255,255,0.03);
+    }
+    .logo .title{ font-weight:800; font-size:18px; line-height:1; color: #dfefff; }
+
+    nav.primary{ display:flex; gap:12px; align-items:center }
+    nav.primary a{ color: var(--muted-light); text-decoration:none; padding:8px 12px; border-radius:10px; font-weight:700; font-size:14px; transition: all var(--transition) }
+    nav.primary a.active, nav.primary a:hover{
+      color: white;
+      background: linear-gradient(90deg, rgba(59,130,246,0.06), rgba(96,165,250,0.03));
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(59,130,246,0.06);
     }
 
-    .logo{display:flex;gap:12px;align-items:center}
-    .logo .mark{width:44px;height:44px;border-radius:10px;background:linear-gradient(180deg,var(--soft-blue),var(--soft-blue-2));display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
-    .logo .title{font-weight:700;font-size:18px}
+    .btn {
+      display:inline-flex;align-items:center;gap:8px;
+      padding:10px 18px;
+      border-radius:25px; /* ⬅️ lebih curve */
+      background:linear-gradient(180deg,var(--soft-blue),var(--soft-blue-2));
+      color:white;text-decoration:none;font-weight:800;
+      box-shadow:0 12px 30px rgba(252, 252, 252, 0.12);
+      border:none;cursor:pointer;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+        
+    .btn:active{ transform: translateY(1px); }
+    .btn.outline{
+      background:transparent;color:var(--soft-blue);border:1px solid rgba(59,130,246,0.12);
+      box-shadow:none;font-weight:800;
+    }
 
-    nav{display:flex;gap:14px;align-items:center}
-    nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600}
-    nav a.active, nav a:hover{color:var(--soft-blue);background:var(--glass)}
+    /* Hover Neon Pulse Global */
+    .btn {
+      position: relative;
+      transition: 0.25s ease;
+      transform-style: preserve-3d;
+    }
 
-    main{max-width:1100px;margin:28px auto;padding:0 18px}
+    /* Neon Pulse Glow */
+    .btn.ripple:hover,
+    .btn.outline.ripple:hover {
+      transform: translateY(-4px) scale(1.06);
+      box-shadow: 0 0 15px var(--btn-glow),
+                  0 0 35px var(--btn-glow);
+    }
 
-    /* hero */
-    .hero{position:relative;overflow:hidden;border-radius:14px;padding:48px 32px;background:linear-gradient(180deg, rgba(139,184,255,0.16) 0%, rgba(255,255,255,0.6) 100%);box-shadow:var(--shadow);display:flex;gap:28px;align-items:center}
-    .hero-left{flex:1}
-    .hero h1{font-size:32px;margin:0;color:#06223a}
-    .hero p{color:var(--muted);margin-top:8px}
-    .hero .cta{margin-top:18px;display:flex;gap:12px;align-items:center}
-    .btn{padding:12px 18px;border-radius:10px;background:linear-gradient(180deg,var(--soft-blue),var(--soft-blue-2));color:white;text-decoration:none;font-weight:700;box-shadow:0 8px 24px rgba(59,130,246,0.18)}
-    .btn.outline{background:transparent;color:var(--soft-blue);border:1px solid rgba(59,130,246,0.12)}
+    /* Tambahkan animasi pulse */
+    .btn.ripple:hover::after,
+    .btn.outline.ripple:hover::after {
+      content: "";
+      position: absolute;
+      inset: -6px;
+      border-radius: inherit;
+      background: var(--btn-glow);
+      filter: blur(20px);
+      opacity: .6;
+      animation: neonPulse 1.3s infinite alternate ease-in-out;
+      z-index: -1;
+    }
 
-    /* parallax stars */
-    .sky{position:absolute;inset:0;pointer-events:none}
-    .star{position:absolute;border-radius:50%;background:linear-gradient(180deg,#ffffff,#e6f0ff);box-shadow:0 0 12px rgba(139,184,255,0.6);opacity:0.95}
+    /* Keyframe anim */
+    @keyframes neonPulse {
+      0% {
+        opacity: .3;
+        filter: blur(18px);
+      }
+      100% {
+        opacity: .7;
+        filter: blur(30px);
+      }
+    }
 
-    /* sections */
-    .grid{display:grid;grid-template-columns:1fr 360px;gap:22px;margin-top:22px}
-    .card{background:var(--card);border-radius:12px;padding:18px;border:1px solid rgba(11,18,32,0.04);box-shadow:var(--shadow)}
+    /* Custom Glow Colors */
+    .btn.ripple {
+      border-radius:25px;
+      --btn-glow: #5784f5; /* Join Discord => Cyan Blue Glow */
+    }
 
-    h2{color:#0b1220;margin:0;font-size:18px}
-    .muted{color:var(--muted);font-size:14px}
+    .btn.outline.ripple {
+      --btn-glow: #5784f500; /* Lihat Rules => Purple Glow */
+    }
 
-    /* staff */
-    .staff-grid{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
-    .staff{flex:1 1 140px;background:linear-gradient(180deg,#ffffff,#fbfeff);padding:12px;border-radius:10px;display:flex;gap:12px;align-items:center}
-    .avatar{width:56px;height:56px;border-radius:10px;background:linear-gradient(180deg,var(--accent),#dceeff);display:flex;align-items:center;justify-content:center;font-weight:700;color:#063058}
-    .staff .meta{font-size:14px}
 
-    /* rules */
-    .rules-list{margin-top:12px;padding-left:18px}
-    .rules-list li{margin:8px 0}
+    /* ripple helper container */
+    .ripple{ position: relative; overflow: hidden; border-radius: inherit; }
 
-    /* gallery */
-    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
-    .gallery img{width:100%;height:150px;object-fit:cover;border-radius:8px;border:1px solid rgba(11,18,32,0.04)}
+    /* ---------- Main Layout ---------- */
 
-    /* music */
-    .cmd{background:#f0f6ff;padding:10px;border-radius:8px;margin:10px 0;border:1px solid rgba(59,130,246,0.06)}
+    main {
+      max-width: 1200px;
+      margin: 28px auto;
+      padding: 0 18px;
+    }
 
-    /* footer */
-    footer{margin:28px auto 60px;max-width:1100px;padding:18px;color:var(--muted);text-align:center}
+    /* ---------- Hero Section ---------- */
+
+    .hero {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+
+      padding: 40px;
+      border-radius: 18px;
+
+      overflow: visible;
+
+      background: linear-gradient(
+        180deg,
+        rgba(59, 130, 246, 0.04) 0%,
+        rgba(255, 255, 255, 0.02) 100%
+      );
+
+      border: 1px solid rgba(255, 255, 255, 0.02);
+      box-shadow: 0 12px 40px rgba(2, 6, 23, 0.6);
+    }
+
+    .hero-left {
+      flex: 1;
+      min-width: 240px;
+      text-align: left;
+      color: #e6eefb;
+    }
+
+    /* ---------- Hero Text Animations ---------- */
+
+    .hero h1 {
+      font-size: 50px;
+      margin : 0;
+      color: #ffffff;
+      letter-spacing: -0.6px;
+      opacity: 90;
+    }
+
+    .hero p {
+      margin-top: 8px;
+      color: rgba(230, 238, 251, 0.8);
+
+      opacity: 90;
+      transform: translateY(8px);
+
+      transition:
+        opacity 0.7s 0.22s ease,
+        transform 0.7s 0.22s ease;
+    }
+
+    /* ---------- Badges ---------- */
+
+    .hero-badges {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge {
+      padding: 8px 12px;
+      border-radius: 12px;
+
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.02),
+        rgba(255, 255, 255, 0.01)
+      );
+      border: 1px solid rgba(255, 255, 255, 0.02);
+
+      font-weight: 700;
+      color: var(--muted-light);
+    }
+
+    .share-link:hover {
+      background: rgba(96,165,250,0.12);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59,130,246,0.15);
+      transition: 220ms ease;
+    }
+
+    .share-links:hover {
+      background: rgba(96,165,250,0.12);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59,130,246,0.15);
+      transition: 220ms ease;
+    }
+
+    /* ---------- Responsive Fix ---------- */
+
+    @media (max-width: 860px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero-left {
+        text-align: center;
+      }
+
+      aside {
+        width: 100% !important;
+      }
+    }
+
+    /* starfield (parallax) */
+    .sky{ position:absolute; inset:0; pointer-events:none; overflow:hidden; border-radius:inherit; z-index:0; }
+
+    .star{ position:absolute; border-radius:50%; background: radial-gradient(circle at 30% 30%, #fff, #dfeeff); box-shadow:0 0 12px rgba(139,184,255,0.25); opacity:0.85; mix-blend-mode: screen; }
+
+    /* ---------- Cards, grids ---------- */
+    .grid{ display:grid; grid-template-columns:1fr 380px; gap:22px; margin-top:22px; align-items:start; }
+    .card{ background: transparent; border-radius:14px; padding:18px; border:1px solid rgba(255,255,255,0.02); box-shadow: 0 12px 40px rgba(2,6,23,0.6); transition: transform var(--transition), box-shadow var(--transition); }
+    .card:hover{ transform: translateY(-6px); box-shadow: 0 18px 48px rgba(2,6,23,0.8); }
+
+    h2{ color: #ffffff; margin:0; font-size:18px; }
+    .muted{ color: rgba(255, 255, 255, 0.75); font-size:14px; }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Dua kolom */
+      gap: 18px; /* Jarak antar card */
+      margin-bottom: 25px;
+      align-items: start;
+    }
+
+
+    /* BORDER UNTUK TEAM SECTION */
+    .team-section {
+      margin: 35px auto;
+      width: 100%;
+      height: 400px;
+      background: #220c3022;
+      text-align:center;
+      border-radius: 18px;
+      border: 2px solid rgba(59,130,246,0.3);
+      padding: 30px 0;
+      overflow: hidden;
+
+      --card-width: 250px;
+      --gap: 24px;
+      --card-count: 8; /* jumlah staff card unik */
+    }
+
+    .gallery-title {
+      font-size: 50px;
+      font-weight: 900;
+      margin-bottom: 35px;
+      color: #eaf6ff;
+      text-shadow: 0 0 20px rgba(255,255,255,0.02);
+      text-align: center; /* ➜ ini untuk center horizontal */
+      width: 100%; /* pastikan mengambil seluruh lebar */
+    }
+
+    .team-container {
+      display: flex;
+      gap: var(--gap);
+      width: calc((var(--card-width) + var(--gap)) * var(--card-count) * 2);
+      animation: staffSlider 18s linear infinite;
+    }
+
+    @keyframes staffSlider {
+      0% { transform: translateX(0); }
+      100% {
+        transform: translateX(calc(-1 * (var(--card-width) + var(--gap)) * var(--card-count)));
+      }
+    }
+
+    .team-section:hover .team-container {
+      animation-play-state: paused;
+    }
+
+    /* CARD TIM */
+    .team-card {
+      min-width: var(--card-width);
+      height: 320px;
+      position: relative;
+      background: #220c3022;
+      padding: 18px;
+      border-radius: 18px;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(81, 15, 103, 0.798);
+      transition: transform .45s ease, box-shadow .45s ease;
+    }
+
+    .team-card:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 0 25px #9c00ff, 0 0 45px #4d00ff inset;
+    }
+
+    .team-card img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.6);
+    }
+
+    .staff-name {
+      margin: 6px 0 0px;
+      font-size: 30px;
+      font-weight: 900;
+      background-size: 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      display: inline-block;
+    }
+
+    .staff-role {
+      font-size: 25px;
+      opacity: 0.9;
+      color: rgba(230,238,251,0.9);
+    }
+
+    /* Glow rank colors */
+    .team-card.owner { box-shadow: 0 0 12px #ff0066aa; }
+    .team-card.owner:hover { box-shadow: 0 0 36px #ff0066dd; }
+
+    .team-card.admin { box-shadow: 0 0 12px #ff9900; }
+    .team-card.admin:hover { box-shadow: 0 0 36px #ccff00; }
+
+    .team-card.mod { box-shadow: 0 0 12px #4800ffaa; }
+    .team-card.mod:hover { box-shadow: 0 0 36px #7b00ffdd; }
+
+    .team-card.modz { box-shadow: 0 0 12px #00ff73aa; }
+    .team-card.modz:hover { box-shadow: 0 0 36px #00ffeadd; }
+
+    /* reveal animations */
+    .reveal{ opacity:0; transform: translateY(12px) scale(0.995); transition: opacity 600ms cubic-bezier(.2,.9,.3,1), transform 600ms cubic-bezier(.2,.9,.3,1); }
+    .reveal.visible{ opacity:1; transform: none; }
+
+    @keyframes spinImage {
+      from {translate: 0;
+      }
+      to {
+        translate: -100%;
+      }
+    }
+
+    .slide {
+      width: 100%;
+      border: 1px solid rgba(255, 0, 0, 0);
+      height: 200px;
+      overflow: hidden;
+      mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 10% 90%,
+        transparent
+      );
+    }
+
+    .slide .list {
+      display: flex;
+      width: 100%;
+      min-width: calc((var(--width) + var(--gap)) * var(--quantity));
+      position: relative;
+    }
+
+    .slide .list .Image{
+      width: var(--width);
+      height: var(--height);
+      position: absolute;
+      left: 100%;
+      animation: autoRun 10s linear infinite;
+      transition: filter 0.5s;
+      animation-delay: calc( (10s / var(--quantity)) * (var(--posision) - 1) );
+      margin-right: var(--gap);
+    }
+
+    .slide .list .Image img {
+      width: 150%;
+      height: 200px;
+      border-radius: 18px;
+    }
+
+    @keyframes autoRun{
+      from{
+        left: 100%;
+      }
+      to{
+        left: calc((var(--width) + var(--gap)) * -1);
+      }
+    }
 
     /* responsive */
     @media (max-width:980px){
-      .grid{grid-template-columns:1fr}
-      .gallery{grid-template-columns:repeat(2,1fr)}
-      nav{display:none}
+      .grid{ grid-template-columns: 1fr; }
+      nav.primary{ display:none; }
+      .mobile-nav-toggle{ display:inline-flex; }
+      .carousel{ height:180px; }
     }
-
     @media (max-width:560px){
-      .gallery img{height:110px}
-      .staff{flex-direction:row}
-      .hero{padding:28px}
-      .hero h1{font-size:22px}
+      .hero{ flex-direction: column; gap:18px; padding:20px; }
+      .carousel{ height:160px; }
     }
 
+    @media(max-width: 768px) {
+      .info-grid {
+        grid-template-columns: 1fr; /* Jadi satu kolom */
+      }
+    }
+
+    /* mobile nav panel */
+    .mobile-nav-panel{
+      position: fixed; inset:0; display:none; z-index:80; padding-top:80px; background: linear-gradient(180deg, rgba(8,20,40,0.85), rgba(8,20,40,0.95));
+      backdrop-filter: blur(4px);
+    }
+    .mobile-nav-panel.open{ display:block; }
+    .mobile-nav-panel nav{ display:flex; flex-direction:column; gap:12px; padding:18px; }
+    .mobile-nav-panel a{ background: rgba(255,255,255,0.02); padding:12px; border-radius:10px; color: var(--muted-light); text-align:center; margin:0 18px; text-decoration:none; }
+
+    /* focus ring */
+    :focus { outline:none; box-shadow: 0 0 0 4px rgba(59,130,246,0.08); }
   </style>
 </head>
 <body>
-
-<header>
-  <div class="logo">
-    <div class="mark">ML</div>
-    <div class="title">Moonlight <small style="display:block;font-size:12px;color:var(--muted)">Soft Blue</small></div>
-  </div>
-  <nav aria-label="Main navigation">
-    <a href="#home" class="active">Home</a>
+<!-- mobile nav overlay -->
+<div id="mobilePanel" class="mobile-nav-panel" aria-hidden="true">
+  <nav aria-label="Mobile navigation">
+    <a href="#home">Home</a>
     <a href="#staff">Staff</a>
     <a href="#rules">Rules</a>
     <a href="#gallery">Gallery</a>
-    <a href="#music">Music Bot</a>
-    <a href="https://discord.gg/moonl1ghtlounge" target="_blank" class="btn">Join</a>
+    <a href="#music">Music</a>
+    <a href="https://discord.gg/moonl1ghtlounge" target="_blank" rel="noopener">Join Discord</a>
   </nav>
-</header>
+</div>
 
 <main>
-  <section class="hero" id="home">
-    <div class="sky" id="sky"></div>
-
+  <section class="hero reveal" id="home" aria-label="Hero">
+    <div class="sky" id="sky" aria-hidden="true"></div>
+    <div class="star-layer"></div>
     <div class="hero-left">
-      <h1>Moonlight Lounge</h1>
-      <p class="muted">Tempat nongkrong ramah untuk ngobrol, main, dan berbagi. Ikuti event mingguan, karaoke, dan musik bersama.</p>
+      <h1 id="heroTitle">Moonlight Lounge</h1>
+      <p class="muted" id="heroSubtitle">Tempat nongkrong ramah untuk ngobrol, main, dan berbagi — karaoke, game nights, dan banyak lagi.</p>
 
-      <div class="cta">
-        <a class="btn" href="https://discord.gg/moonl1ghtlounge" target="_blank">Join Discord</a>
-        <a class="btn outline" href="#rules">Lihat Rules</a>
+      <div class="cta" style="margin-top:18px">
+        <a class="btn ripple" href="https://discord.gg/moonl1ghtlounge" target="_blank" rel="noopener">Join Discord</a>
+        <button class="btn outline ripple" id="rulesBtn">Lihat Rules</button>
       </div>
 
-      <div style="margin-top:18px;display:flex;gap:12px;align-items:center">
-        <div class="card" style="display:inline-block;padding:10px 14px;">✨ Aktif 24/7</div>
-        <div class="card" style="display:inline-block;padding:10px 14px;">🎵 Music & Karaoke</div>
-        <div class="card" style="display:inline-block;padding:10px 14px;">🎮 Game Nights</div>
+      <div class="hero-badges" aria-hidden="true">
+        <div class="badge">✨ Aktif 24/7</div>
+        <div class="badge">🎵 Music & Karaoke</div>
+        <div class="badge">🎮 Game Nights</div>
       </div>
     </div>
 
-    <aside style="width:340px">
-      <div class="card">
-        <h2>Quick Info</h2>
-        <p class="muted">Invite: <strong>https://discord.gg/moonl1ghtlounge</strong></p>
-        <div style="display:flex;gap:8px;margin-top:8px">
-          <button onclick="copyInvite()" class="btn outline" style="flex:1">Copy Invite</button>
-          <a class="btn" href="https://discord.gg/moonl1ghtlounge" target="_blank">Open</a>
-        </div>
+    <aside style="width:360px; position:relative; z-index:2">
+      <!-- QUICK SHARE SIMPLE & ELEGAN -->
+      <div class="card reveal" id="shareCard" style="margin-bottom:16px">
+        <h2>Quick Share</h2>
+        <p class="muted" style="font-size:12px;margin-bottom:8px">Invite Link</p>
+        
+        <a class="share-link" href="https://discord.gg/moonl1ghtlounge"
+          target="_blank" rel="noopener"
+          style="display:block;padding:10px 12px;border-radius:10px;
+                  background:rgba(255,255,255,0.05);color:#fff;
+                  text-decoration:none;font-weight:700;font-size:14px;
+                  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+          https://discord.gg/moonl1ghtlounge
+        </a>
+
+        <p class="muted" style="font-size:11px;margin-top:6px;opacity:0.7;">
+          Klik untuk membuka invite
+        </p>
       </div>
 
-      <div class="card" style="margin-top:12px">
+      <!-- STATS DI BAWAHNYA -->
+      <div class="card reveal" id="statsCard" aria-live="polite">
         <h2>Server Stats</h2>
-        <p class="muted">Online members: <strong id="onlineCount">—</strong></p>
-        <p class="muted">Channels: <strong>20+</strong></p>
+        <div class="stats-wrapper">
+          <div class="stat">
+            <div class="num" id="totalCount">—</div>
+            <div class="label muted">Total Members</div>
+          </div>
+          <div class="stat">
+            <div class="num" id="onlineCount">—</div>
+            <div class="label muted">Online Now</div>
+          </div>
+        </div>
       </div>
     </aside>
   </section>
+    <h2 class="gallery-title">Moonlight Staff Team</h2>
+  <section class="team-section" id="staff" aria-label="Staff">
+    <div class="team-container">
 
-  <div class="grid">
-    <section>
-      <div class="card" id="staff">
-        <h2>Staff Team</h2>
-        <p class="muted">Tim moderator dan admin yang menjaga keamanan & kenyamanan komunitas.</p>
+      <!-- 8 CARD ASLI -->
+      <div class="team-card owner"><img src="img/Owner.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#ff0080,#ff8c00);">Jemii</h3><p class="staff-role">Moonlord</p></div>
+      <div class="team-card admin"><img src="assets/staff/admin.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#ff6a00,#f7fb01);">Staff 1</h3><p class="staff-role">Starguard</p></div>
+      <div class="team-card admin"><img src="assets/staff/admin.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#ff6a00,#f7fb01);">Staff 2</h3><p class="staff-role">Starguard</p></div>
+      <div class="team-card mod"><img src="img/staff 3.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#4800ff,#00ffaa);">Orcs</h3><p class="staff-role">LunaCrew</p></div>
+      <div class="team-card mod"><img src="assets/staff/moderator.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#4800ff,#00ffaa);">Staff 4</h3><p class="staff-role">LunaCrew</p></div>
+      <div class="team-card mod"><img src="assets/staff/moderator.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#4800ff,#00ffaa);">Staff 4</h3><p class="staff-role">LunaCrew</p></div>
+      <div class="team-card modz"><img src="assets/staff/moderator.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#00ff73,#00ffe5);">Staff 5</h3><p class="staff-role">Manager Partner</p></div>
+      <div class="team-card modz"><img src="assets/staff/moderator.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#00ff73,#00ffe5);">Staff 5</h3><p class="staff-role">Manager Partner</p></div>
 
-        <div class="staff-grid">
-          <div class="staff">
-            <div class="avatar">AD</div>
-            <div class="meta"><strong>Test 1</strong><div class="muted">Owner</div></div>
-          </div>
+      <!-- DUPLIKASI UNTUK LOOP -->
+      <div class="team-card owner"><img src="img/Owner.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#ff0080,#ff8c00);">Owner</h3><p class="staff-role">Moonlord</p></div>
+      <div class="team-card admin"><img src="assets/staff/admin.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#ff6a00,#f7fb01);">Staff 1</h3><p class="staff-role">Starguard</p></div>
+      <div class="team-card admin"><img src="assets/staff/admin.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#ff6a00,#f7fb01);">Staff 2</h3><p class="staff-role">Starguard</p></div>
+      <div class="team-card mod"><img src="img/staff 3.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#4800ff,#00ffaa);">Orcs</h3><p class="staff-role">LunaCrew</p></div>
+      <div class="team-card mod"><img src="assets/staff/moderator.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#4800ff,#00ffaa);">Staff 4</h3><p class="staff-role">LunaCrew</p></div>
+      <div class="team-card mod"><img src="assets/staff/moderator.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#4800ff,#00ffaa);">Staff 4</h3><p class="staff-role">LunaCrew</p></div>
+      <div class="team-card modz"><img src="assets/staff/moderator.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#00ff73,#00ffe5);">Staff 5</h3><p class="staff-role">Manager Partner</p></div>
+      <div class="team-card modz"><img src="assets/staff/moderator.png"><h3 class="staff-name" style="background-image: linear-gradient(90deg,#00ff73,#00ffe5);">Staff 5</h3><p class="staff-role">Manager Partner</p></div>
 
-          <div class="staff">
-            <div class="avatar">RI</div>
-            <div class="meta"><strong>Test 2</strong><div class="muted">Head Moderator</div></div>
-          </div>
+    </div>
+  </section>
 
-          <div class="staff">
-            <div class="avatar">FA</div>
-            <div class="meta"><strong>Test 3</strong><div class="muted">Music Bot</div></div>
-          </div>
+  <div class="info-grid">
+    <div class="card reveal" id="rules">
+      <h2>Rules Server</h2>
+      <ol class="rules-list" style="margin-top:12px;padding-left:18px; text-align:left; color: rgba(230,238,251,0.9);">
+        <li>Hormati sesama anggota. Tidak boleh kata-kata kasar, rasis, atau menghina.</li>
+        <li>Tidak membagikan konten ilegal atau berbahaya.</li>
+        <li>Jangan spam di channel umum. Gunakan channel khusus untuk promosi.</li>
+        <li>Patuhi instruksi moderator & admin.</li>
+        <li>Gunakan voice channel dengan sopan (jangan ganggu sesi orang lain).</li>
+      </ol>
+    </div>
 
-          <div class="staff">
-            <div class="avatar">MB</div>
-            <div class="meta"><strong>Test 4</strong><div class="muted">Event Manager</div></div>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:14px" id="rules">
-        <h2>Rules Server</h2>
-        <ol class="rules-list">
-          <li>Hormati sesama anggota. Tidak boleh kata-kata kasar, rasis, atau menghina.</li>
-          <li>Tidak membagikan konten illegal atau berbahaya.</li>
-          <li>Jangan spam di channel umum. Gunakan channel khusus untuk promosi.</li>
-          <li>Patuhi instruksi moderator & admin.</li>
-          <li>Gunakan voice channel dengan sopan (jangan ganggu sesi orang lain).</li>
-        </ol>
-      </div>
-
-      <div class="card" style="margin-top:14px" id="music">
-        <h2>Music Bot — Commands</h2>
-        <p class="muted">Gunakan bot music untuk putar lagu, antrian, dan karaoke.</p>
-        <div class="cmd"><code>!play &lt;judul atau link&gt;</code> — Memutar lagu</div>
-        <div class="cmd"><code>!skip</code> — Lewati lagu saat ini</div>
-        <div class="cmd"><code>!queue</code> — Lihat antrian lagu</div>
-        <div class="cmd"><code>!stop</code> — Hentikan pemutaran</div>
-        <div class="cmd"><code>!lyrics &lt;judul&gt;</code> — Tampilkan lirik</div>
-      </div>
-
-    </section>
-
-    <aside>
-      <div class="card">
-        <h2>Gallery</h2>
-        <p class="muted">Screenshot & momen seru dari komunitas.</p>
-        <div class="gallery" id="gallery">
-          <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=800&q=60" alt="gallery1"/>
-          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=60" alt="gallery2"/>
-          <img src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=800&q=60" alt="gallery3"/>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:12px">
-        <h2>Upcoming Events</h2>
-        <ul style="margin-top:8px" class="muted">
-          <li>TBA</li>
-          <li>TBA</li>
-          <li>TBA</li>
-        </ul>
-      </div>
-
-    </aside>
+    <div class="card reveal" id="music">
+      <h2>Music Bot — Commands</h2>
+      <p class="muted">Gunakan bot music untuk putar lagu, antrian, dan karaoke.</p>
+      <div class="cmd" style="margin-top:10px"><code>!play &lt;judul atau link&gt;</code> — Memutar lagu</div>
+      <div class="cmd"><code>!skip</code> — Lewati lagu saat ini</div>
+      <div class="cmd"><code>!queue</code> — Lihat antrian lagu</div>
+      <div class="cmd"><code>!stop</code> — Hentikan pemutaran</div>
+      <div class="cmd"><code>!lyrics &lt;judul&gt;</code> — Tampilkan lirik</div>
+    </div>
+  </div>
+    <h2 class="gallery-title">Our Gallery</h2>
+  <div class="slide" style="
+    --width: 100px; 
+    --height: 50px; 
+    --quantity: 10;
+    --gap: 60px;
+  ">
+    <div class="list">
+      <div class="Image" style="--posision: 1"><img src="img/AI Home.jpg" alt=""></div>
+      <div class="Image" style="--posision: 2"><img src="img/AI Home.jpg" alt=""></div>
+      <div class="Image" style="--posision: 3"><img src="img/AI Home.jpg" alt=""></div>
+      <div class="Image" style="--posision: 4"><img src="img/AI Home.jpg" alt=""></div>
+      <div class="Image" style="--posision: 5"><img src="img/AI Home.jpg" alt=""></div>
+      <div class="Image" style="--posision: 6"><img src="img/AI Home.jpg" alt=""></div>
+      <div class="Image" style="--posision: 7"><img src="img/AI Home.jpg" alt=""></div>
+      <div class="Image" style="--posision: 8"><img src="img/AI Home.jpg" alt=""></div>
+      <div class="Image" style="--posision: 9"><img src="img/AI Home.jpg" alt=""></div>
+      <div class="Image" style="--posision: 10"><img src="img/AI Home.jpg" alt=""></div>
+    </div>
   </div>
 </main>
 
 <footer>
-  © <span id="year"></span> Moonlight • Made with soft blue ✨ — <a href="https://discord.gg/moonl1ghtlounge" target="_blank">Join our Discord</a>
+  © <span id="year"></span> Moonlight • Made with soft blue ✨ — <a href="https://discord.gg/moonl1ghtlounge" target="_blank" rel="noopener">Join our Discord</a>
 </footer>
 
 <script>
-// ===== small JS for interactions & parallax star effect =====
-(function(){
-  // copy invite
-  window.copyInvite = function(){
-    const invite = 'https://discord.gg/moonl1ghtlounge';
-    navigator.clipboard.writeText(invite).then(()=>{
-      alert('Link invite disalin ke clipboard!');
-    }).catch(()=>{alert('Tidak dapat menyalin—silakan salin manual: '+invite)})
+// ========= CONFIG =========
+const SERVER_ID = "1402562365894955048"; // ← Ganti dengan Server ID Moonlight Lounge
+const DISCORD_WIDGET_URL = `https://discord.com/api/guilds/${SERVER_ID}/widget.json`;
+
+// ========= Starfield / Galaxy Background =========
+function createStars() {
+  const sky = document.getElementById("sky");
+  for (let i = 0; i < 45; i++){
+    const star = document.createElement("div");
+    star.className = "star";
+    star.style.width = star.style.height = Math.random()*2+1+"px";
+    star.style.left = Math.random()*100+"%";
+    star.style.top = Math.random()*100+"%";
+    star.style.opacity = (Math.random()*0.5+0.5);
+    sky.appendChild(star);
   }
+}
+createStars();
 
-  // set year
-  document.getElementById('year').textContent = new Date().getFullYear();
+// ========= Reveal on Scroll =========
+const reveals = document.querySelectorAll(".reveal");
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add("visible");
+  });
+}, { threshold: 0.15 });
 
-  // fake online count (placeholder)
-  const online = Math.floor(50 + Math.random()*450);
-  document.getElementById('onlineCount').textContent = online + ' online';
+reveals.forEach(el => observer.observe(el));
 
-  // simple parallax/star field generator (light/minimal)
-  const sky = document.getElementById('sky');
-  const w = window.innerWidth;
-  const h = window.innerHeight * 0.6;
-  const starCount = 20;
-  for(let i=0;i<starCount;i++){
-    const s = document.createElement('div');
-    s.className = 'star';
-    const size = 4 + Math.random()*8;
-    s.style.width = size + 'px';
-    s.style.height = size + 'px';
-    s.style.left = (Math.random()*100) + '%';
-    s.style.top = (Math.random()*80) + '%';
-    s.style.opacity = 0.6 + Math.random()*0.4;
-    s.style.transform = 'translateZ(0)';
-    sky.appendChild(s);
-    // subtle float animation
-    const dur = 8 + Math.random()*12;
-    s.animate([
-      { transform: 'translateY(0px)' },
-      { transform: 'translateY(' + (10 + Math.random()*20) + 'px)' },
-      { transform: 'translateY(0px)' }
-    ],{ duration: dur*1000, iterations: Infinity, easing: 'ease-in-out' });
+// ========= Mobile Nav Toggle =========
+const mobileToggle = document.getElementById("mobileToggle");
+const mobilePanel = document.getElementById("mobilePanel");
+mobileToggle.addEventListener("click",()=> mobilePanel.classList.toggle("open"));
+
+// ========= Sticky Header Style Change =========
+const header = document.getElementById("header");
+window.addEventListener("scroll",()=>{
+  header.classList.toggle("scrolled", window.scrollY > 20);
+});
+
+// ========= Copy Invite Button =========
+function copyInvite(){
+  navigator.clipboard.writeText("https://discord.gg/moonl1ghtlounge");
+  alert("Invite berhasil dicopy!");
+}
+
+// ========= Ripple Effect =========
+document.querySelectorAll(".ripple").forEach(btn=>{
+  btn.addEventListener("click", function(e){
+    const circle = document.createElement("span");
+    const diameter = Math.max(this.clientWidth, this.clientHeight);
+    circle.style.width = circle.style.height = diameter+"px";
+    circle.style.left = e.clientX - this.offsetLeft - diameter/2+"px";
+    circle.style.top = e.clientY - this.offsetTop - diameter/2+"px";
+    circle.classList.add("ripple-anim");
+    this.appendChild(circle);
+    setTimeout(()=> circle.remove(), 600);
+  });
+});
+
+// ========= Members Counter (API) =========
+async function updateWidget(){
+  try{
+    const res = await fetch(DISCORD_WIDGET_URL);
+    const json = await res.json();
+
+    document.getElementById("totalCount").textContent = json.members.length;
+    document.getElementById("onlineCount").textContent =
+      json.members.filter(m => m.status === "online").length;
+
+  }catch(e){
+    console.warn("Widget error / server widget disabled", e);
+    document.getElementById("totalCount").textContent = "N/A";
+    document.getElementById("onlineCount").textContent = "—";
   }
-
-  // smooth scroll for nav
-  document.querySelectorAll('nav a').forEach(a=>{
-    a.addEventListener('click', (e)=>{
-      const href = a.getAttribute('href');
-      if(href && href.startsWith('#')){
-        e.preventDefault();
-        document.querySelector(href).scrollIntoView({behavior:'smooth'});
-        document.querySelectorAll('nav a').forEach(x=>x.classList.remove('active'));
-        a.classList.add('active');
-      }
-    })
-  })
-
-})();
+}
+updateWidget();
+setInterval(updateWidget, 15000); // update tiap 15s
 </script>
 
+<style>
+/* Ripple animation style */
+.ripple-anim {
+  position:absolute;
+  border-radius:50%;
+  transform:scale(0);
+  background:rgba(255,255,255,0.4);
+  animation:ripple .6s linear;
+}
+@keyframes ripple {
+  to {
+    transform:scale(3);
+    opacity:0;
+  }
+}
+</style>
 </body>
 </html>
