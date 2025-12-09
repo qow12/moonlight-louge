@@ -129,6 +129,52 @@ body {
   margin: 0 auto;
 }
 
+.stock{
+  font-size: 18px;
+  padding-block: 8px;
+  border-block: 1px solid #27272a;
+  overflow: hidden;
+  user-select: none;
+  display: flex;
+  --gap: 100px;
+  gap: var(--gap);
+  background: #1e1e1ea0;
+}
+
+
+
+.stock ul{
+  list-style: none;
+  flex-shrink: 0;
+  display: flex;
+  min-width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap);
+
+  animation: slide 10s linear infinite;
+}
+
+@keyframes slide {
+  to {
+    transform: translate(calc(-100% - var(--gap)));
+  }
+  
+}
+
+.stock .company{
+  color:#a1a1aa;
+  font-weight: bold;
+}
+
+.stock .moonlight{
+  background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+  background-clip: text;
+  color: transparent;
+  animation-duration: 2s;
+  animation-timing-function: ease;
+  font-weight: bold;
+}
 .badge {
   display: inline-block;
   padding: 0.5rem 1rem;
@@ -139,6 +185,40 @@ body {
   font-size: 0.875rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
+}
+
+.Text-3d {
+  text-transform: uppercase;
+  font-size: 50px;
+  font-weight: 900;
+  color: #fff;
+  display: inline-block;
+  transition: transform .2s ease-out, text-shadow .4s ease;
+  transform-style: preserve-3d;
+  animation: floating 4s ease-in-out infinite; /* floating saat idle */
+
+  text-shadow:
+    1px 1px 1px #919191,
+    1px 2px 1px #919191,
+    1px 3px 1px #919191,
+    1px 4px 1px #919191,
+    1px 5px 1px #919191,
+    1px 6px 1px #919191,
+    1px 7px 1px #919191,
+    1px 8px 1px #919191,
+    1px 9px 1px #919191,
+    1px 10px 1px #919191,
+    1px 18px 6px rgba(16, 16, 16, 0.4),
+    1px 22px 10px rgba(16, 16, 16, 0.2),
+    1px 25px 35px rgba(16, 16, 16, 0.2),
+    1px 30px 60px rgba(16, 16, 16, 0.4);
+  }
+
+  /* Animasi floating idle */
+  @keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0px); }
 }
 
 .hero-title {
